@@ -136,7 +136,6 @@ const Menu = () => {
   filteredItems = filteredItems.filter(item =>
     item.price >= priceRange[0] && item.price <= priceRange[1]
   );
-  // Sorting
   if (sortBy === 'priceLowHigh') filteredItems.sort((a, b) => a.price - b.price);
   if (sortBy === 'priceHighLow') filteredItems.sort((a, b) => b.price - a.price);
   if (sortBy === 'nameAZ') filteredItems.sort((a, b) => a.name.localeCompare(b.name));

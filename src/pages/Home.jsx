@@ -41,7 +41,6 @@ const Home = () => {
     }
   ];
 
-  // Helper to get isVeg for special items
   const getIsVeg = (name) => {
     const allItems = [
       ...menuData.snacks,
@@ -248,7 +247,6 @@ const Home = () => {
                           fontWeight: 'bold'
                         }}
                       />
-                      {/* Veg/Non-Veg Chip */}
                       {typeof item.isVeg === 'boolean' && (
                         <Chip
                           label={item.isVeg ? 'Veg' : 'Non-Veg'}

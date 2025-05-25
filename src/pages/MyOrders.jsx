@@ -80,7 +80,6 @@ const MyOrders = () => {
     );
   }
 
-  // Calculate total pending payment
   const pendingAmount = orders
     .filter(order => order.paymentStatus === 'Pending')
     .reduce((sum, order) => sum + (order.total || 0), 0);
