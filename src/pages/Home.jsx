@@ -6,9 +6,13 @@ import {
   AccessTime as TimeIcon,
   Favorite as FavoriteIcon,
   ArrowForward as ArrowIcon,
+  AddShoppingCart as AddCartIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
+import { useCart } from '../context/CartContext';
+import { toast } from 'react-toastify';
+import { menuData } from '../data/menuData';
 
 const MotionBox = motion(Box);
 const MotionPaper = motion(Paper);
@@ -17,6 +21,7 @@ const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { addToCart } = useCart();
 
   const features = [
     {
@@ -36,36 +41,16 @@ const Home = () => {
     }
   ];
 
-  // Today's special items
-  const specialItems = [
-    {
-      id: 'special1',
-      name: 'Butter Chicken',
-      description: 'Creamy, rich curry with tender chicken pieces',
-      price: 299,
-      originalPrice: 399,
-      image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-      tag: '25% OFF'
-    },
-    {
-      id: 'special2',
-      name: 'Paneer Tikka',
-      description: 'Grilled cottage cheese with Indian spices',
-      price: 249,
-      originalPrice: 349,
-      image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-      tag: '30% OFF'
-    },
-    {
-      id: 'special3',
-      name: 'Biryani',
-      description: 'Fragrant rice dish with aromatic spices',
-      price: 199,
-      originalPrice: 299,
-      image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-      tag: 'SPECIAL'
-    }
-  ];
+  // Helper to get isVeg for special items
+  const getIsVeg = (name) => {
+    const allItems = [
+      ...menuData.snacks,
+      ...menuData.mainCourse,
+      ...menuData.beverages,
+    ];
+    const found = allItems.find(i => i.name === name);
+    return found ? found.isVeg : undefined;
+  };
 
   return (
     <Box
@@ -76,7 +61,6 @@ const Home = () => {
         bgcolor: 'background.default',
       }}
     >
-      {/* Hero and Features Section */}
       <Container maxWidth="lg" sx={{ pt: 8, pb: 0 }}>
         <Box
           sx={{
@@ -219,7 +203,6 @@ const Home = () => {
         </Box>
       </Container>
 
-      {/* Today's Special Section */}
       <Box sx={{ py: 8, bgcolor: 'background.paper', mt: 8 }}>
         <Container maxWidth="lg">
           <Fade in={true}>
@@ -233,7 +216,7 @@ const Home = () => {
             </Box>
           </Fade>
           <Grid container spacing={4}>
-            {specialItems.map((item, index) => (
+            {menuData.specials.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={item.id}>
                 <Slide direction="up" in={true} style={{ transitionDelay: `${index * 100}ms` }}>
                   <Card 
@@ -265,6 +248,22 @@ const Home = () => {
                           fontWeight: 'bold'
                         }}
                       />
+                      {/* Veg/Non-Veg Chip */}
+                      {typeof item.isVeg === 'boolean' && (
+                        <Chip
+                          label={item.isVeg ? 'Veg' : 'Non-Veg'}
+                          color={item.isVeg ? 'success' : 'error'}
+                          size="small"
+                          sx={{
+                            position: 'absolute',
+                            top: 16,
+                            left: 16,
+                            fontWeight: 'bold',
+                            bgcolor: item.isVeg ? 'success.main' : 'error.main',
+                            color: '#fff',
+                          }}
+                        />
+                      )}
                     </Box>
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography variant="h5" gutterBottom>
@@ -273,7 +272,7 @@ const Home = () => {
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                         {item.description}
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                         <Typography variant="h6" color="primary">
                           ₹{item.price}
                         </Typography>
@@ -281,6 +280,22 @@ const Home = () => {
                           ₹{item.originalPrice}
                         </Typography>
                       </Box>
+                      <Button
+                        variant="contained"
+                        startIcon={<AddCartIcon />}
+                        onClick={() => {
+                          addToCart(item);
+                          toast.success(`${item.name} added to cart!`);
+                        }}
+                        sx={{
+                          mt: 1,
+                          transition: 'transform 0.2s',
+                          '&:hover': { transform: 'scale(1.05)' }
+                        }}
+                        fullWidth
+                      >
+                        Add to Cart
+                      </Button>
                     </CardContent>
                   </Card>
                 </Slide>
@@ -303,7 +318,6 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Made with love for students at the very bottom */}
       <Box sx={{ width: '100%', textAlign: 'center', py: 3, mt: 6 }}>
         <Typography 
           variant="h6" 

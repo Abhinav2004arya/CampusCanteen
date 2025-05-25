@@ -1,4 +1,39 @@
 export const menuData = {
+  specials: [
+    {
+      id: 'special1',
+      name: 'Butter Chicken',
+      description: 'Creamy, rich curry with tender chicken pieces',
+      price: 299,
+      originalPrice: 399,
+      image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+      category: 'specials',
+      isVeg: false,
+      tag: '25% OFF'
+    },
+    {
+      id: 'special2',
+      name: 'Paneer Tikka',
+      description: 'Grilled cottage cheese with Indian spices',
+      price: 249,
+      originalPrice: 349,
+      image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+      category: 'specials',
+      isVeg: true,
+      tag: '30% OFF'
+    },
+    {
+      id: 'special3',
+      name: 'Biryani',
+      description: 'Fragrant rice dish with aromatic spices',
+      price: 199,
+      originalPrice: 299,
+      image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+      category: 'specials',
+      isVeg: false,
+      tag: 'SPECIAL'
+    }
+  ],
   snacks: [
     {
       id: 's1',
