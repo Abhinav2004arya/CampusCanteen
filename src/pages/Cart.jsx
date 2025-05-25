@@ -93,8 +93,21 @@ const Cart = () => {
   }
 
   return (
-    <Box sx={{ width: '100vw', minHeight: 'calc(100vh - 64px)', px: { xs: 2, sm: 4 }, py: { xs: 2, sm: 4 }, overflow: 'hidden', mt: { xs: 7, sm: 8 } }}>
-      <Box sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
+    <Box sx={{
+      width: '100vw',
+      minHeight: 'calc(100vh - 64px)',
+      px: { xs: 2, sm: 4 },
+      py: { xs: 2, sm: 4 },
+      overflow: 'hidden',
+      mt: { xs: 7, sm: 8 },
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+    }}>
+      <Box sx={{
+        maxWidth: 1200,
+        mx: 'auto',
+        width: '100%',
+        bgcolor: 'transparent'
+      }}>
         <Typography 
           variant="h4" 
           gutterBottom 
@@ -116,8 +129,8 @@ const Cart = () => {
               in={true} 
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <Card sx={{ mb: 2 }}>
-                <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+              <Card sx={{ mb: 2, bgcolor: 'transparent' }}>
+                <CardContent sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'transparent' }}>
                   <Box sx={{ 
                     display: 'flex', 
                     flexDirection: { xs: 'column', sm: 'row' },

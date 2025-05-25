@@ -155,7 +155,13 @@ const Menu = () => {
   };
 
   return (
-    <Box sx={{ width: '100vw', px: { xs: 2, sm: 4 }, mt: { xs: 7, sm: 8 } }}>
+    <Box sx={{ 
+      width: '100vw', 
+      px: { xs: 2, sm: 4 }, 
+      mt: { xs: 7, sm: 8 },
+      minHeight: 'calc(100vh - 64px)',
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+    }}>
       <Box sx={{ maxWidth: 1400, mx: 'auto', display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
         <Box sx={{
           minWidth: { md: 260 },
@@ -165,7 +171,7 @@ const Menu = () => {
           position: { md: 'sticky' },
           top: { md: 96 },
           alignSelf: 'flex-start',
-          bgcolor: { md: 'background.paper' },
+          bgcolor: 'rgba(45, 45, 45, 0.8)',
           borderRadius: { md: 3 },
           p: { md: 3, xs: 0 },
           boxShadow: { md: 2, xs: 0 },
@@ -213,7 +219,7 @@ const Menu = () => {
             </Select>
           </Box>
         </Box>
-        <Box sx={{ flex: 1 }}>
+        <Box sx={{ flex: 1, bgcolor: 'transparent' }}>
           <Box sx={{ mb: 4 }}>
             <TextField
               fullWidth
@@ -271,6 +277,7 @@ const Menu = () => {
                           transform: 'translateY(-8px)',
                           boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
                         },
+                        bgcolor: 'transparent'
                       }}
                     >
                       <CardMedia
@@ -288,7 +295,7 @@ const Menu = () => {
                           },
                         }}
                       />
-                      <CardContent sx={{ flexGrow: 1 }}>
+                      <CardContent sx={{ flexGrow: 1, bgcolor: 'transparent' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
                           <Typography variant="h6" component="div">
                             {item.name}

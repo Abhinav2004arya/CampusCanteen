@@ -85,10 +85,16 @@ const MyOrders = () => {
     .reduce((sum, order) => sum + (order.total || 0), 0);
 
   return (
-    <Box sx={{ width: '100vw', px: { xs: 2, sm: 4 }, mt: { xs: 7, sm: 8 } }}>
-      <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
+    <Box sx={{
+      width: '100vw',
+      px: { xs: 2, sm: 4 },
+      mt: { xs: 7, sm: 8 },
+      minHeight: 'calc(100vh - 64px)',
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+    }}>
+      <Box sx={{ maxWidth: 1200, mx: 'auto', bgcolor: 'transparent' }}>
         {pendingAmount > 0 && (
-          <Box sx={{ mb: 3, p: 2, bgcolor: 'warning.main', color: '#212121', borderRadius: 2, fontWeight: 600, fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ mb: 3, p: 2, bgcolor: 'rgba(45, 45, 45, 0.8)', color: '#212121', borderRadius: 2, fontWeight: 600, fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: 1 }}>
             <span role="img" aria-label="pending">💸</span>
             Pending Payment: ₹{pendingAmount}
           </Box>
@@ -104,8 +110,8 @@ const MyOrders = () => {
               in={true} 
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <Card sx={{ mb: 2 }}>
-                <CardContent>
+              <Card sx={{ mb: 2, bgcolor: 'transparent' }}>
+                <CardContent sx={{ bgcolor: 'transparent' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                     <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <TimeIcon /> Order #{order.id.slice(-6)}

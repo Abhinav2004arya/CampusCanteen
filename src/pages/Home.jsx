@@ -57,7 +57,7 @@ const Home = () => {
         width: '100vw',
         minHeight: 'calc(100vh - 64px)',
         overflow: 'hidden',
-        bgcolor: 'background.default',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
       }}
     >
       <Container maxWidth="lg" sx={{ pt: 8, pb: 0 }}>
@@ -202,7 +202,7 @@ const Home = () => {
         </Box>
       </Container>
 
-      <Box sx={{ py: 8, bgcolor: 'background.paper', mt: 8 }}>
+      <Box sx={{ py: 8, bgcolor: 'rgba(45, 45, 45, 0.8)', mt: 8 }}>
         <Container maxWidth="lg">
           <Fade in={true}>
             <Box sx={{ textAlign: 'center', mb: 6 }}>
