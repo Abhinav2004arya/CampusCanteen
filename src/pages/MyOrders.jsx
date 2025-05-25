@@ -80,9 +80,20 @@ const MyOrders = () => {
     );
   }
 
+  // Calculate total pending payment
+  const pendingAmount = orders
+    .filter(order => order.paymentStatus === 'Pending')
+    .reduce((sum, order) => sum + (order.total || 0), 0);
+
   return (
     <Box sx={{ width: '100vw', px: { xs: 2, sm: 4 }, mt: { xs: 7, sm: 8 } }}>
       <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
+        {pendingAmount > 0 && (
+          <Box sx={{ mb: 3, p: 2, bgcolor: 'warning.main', color: '#212121', borderRadius: 2, fontWeight: 600, fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: 1 }}>
+            <span role="img" aria-label="pending">💸</span>
+            Pending Payment: ₹{pendingAmount}
+          </Box>
+        )}
         <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <RestaurantIcon /> My Orders
         </Typography>

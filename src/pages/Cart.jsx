@@ -10,6 +10,13 @@ import {
   Zoom,
   Slide,
   useMediaQuery,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from '@mui/material';
 import { 
   Add, 
@@ -24,24 +31,31 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTheme } from '@mui/material/styles';
+import { useState } from 'react';
 
 const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
   const theme = useTheme();
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [paymentOption, setPaymentOption] = useState('now');
 
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
       toast.error('Your cart is empty!');
       return;
     }
+    setShowPaymentDialog(true);
+  };
 
+  const handleConfirmPayment = () => {
     const order = {
       id: Date.now().toString(),
       items: cartItems,
       total: getTotalPrice(),
       status: 'Preparing',
       timestamp: new Date().toISOString(),
+      paymentStatus: paymentOption === 'later' ? 'Pending' : 'Paid',
     };
 
     const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
@@ -50,6 +64,8 @@ const Cart = () => {
 
     clearCart();
     toast.success('Order placed successfully!');
+    setShowPaymentDialog(false);
+    setPaymentOption('now');
     navigate('/my-orders');
   };
 
@@ -211,12 +227,7 @@ const Cart = () => {
             ₹{getTotalPrice()}
           </Typography>
         </Box>
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between',
-          flexDirection: { xs: 'column', sm: 'row' },
-          gap: { xs: 2, sm: 0 }
-        }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
             variant="outlined"
             onClick={() => navigate('/menu')}
@@ -244,6 +255,22 @@ const Cart = () => {
           </Button>
         </Box>
       </Box>
+      <Dialog open={showPaymentDialog} onClose={() => setShowPaymentDialog(false)}>
+        <DialogTitle>Choose Payment Option</DialogTitle>
+        <DialogContent>
+          <RadioGroup
+            value={paymentOption}
+            onChange={e => setPaymentOption(e.target.value)}
+          >
+            <FormControlLabel value="now" control={<Radio />} label="Pay Now" />
+            <FormControlLabel value="later" control={<Radio />} label="Pay Later" />
+          </RadioGroup>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowPaymentDialog(false)} color="inherit">Cancel</Button>
+          <Button onClick={handleConfirmPayment} variant="contained">Confirm</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
