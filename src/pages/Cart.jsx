@@ -262,7 +262,7 @@ const Cart = () => {
             value={paymentOption}
             onChange={e => setPaymentOption(e.target.value)}
           >
-            <FormControlLabel value="now" control={<Radio />} label="Pay Now" />
+            <FormControlLabel value="now" control={<Radio />} label="Pay On Delievery" />
             <FormControlLabel value="later" control={<Radio />} label="Pay Later" />
           </RadioGroup>
         </DialogContent>
